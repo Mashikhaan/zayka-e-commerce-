@@ -1,8 +1,8 @@
 import React from "react";
 
 export default function AllProductsCard({ item, addToCart }) {
-  return (
-    <div id={item._id} className="bg-gray-100 rounded-2xl shadow-md p-6 text-center hover:shadow-lg transition">
+return (
+    <div id={item._id} className="bg-white rounded-2xl shadow-md p-6 text-center hover:shadow-lg transition">
 
       {/* Product Image */}
       <img

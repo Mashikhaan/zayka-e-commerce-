@@ -8,7 +8,7 @@ import validateCart from '../middleware/validate.middleware.js';
 import { addCartController } from '../controller/addCart.controller.js';
 import { get } from 'mongoose';
 import { getCartController } from '../controller/getCart.controller.js';
-import { deleteCartController } from '../controller/deleteCart.controller.js';
+import { deleteCartController, clearCartController } from '../controller/deleteCart.controller.js';
 import { updateQuantityController } from '../controller/updateQuantity.controller.js';
 
 const cartRouter = Router();
@@ -32,11 +32,19 @@ cartRouter.get('/',authUser,getCartController);
 
 //delete cart route
  /**
-  * @route DELETE /api/cart
-  * @desc Delete current user's cart
+  * @route DELETE /api/cart/remove/:id
+  * @desc Delete a single item from current user's cart
   * @access Private
   */
  cartRouter.delete('/remove/:id',authUser,deleteCartController);
+
+// clear cart route
+ /**
+  * @route DELETE /api/cart/clear
+  * @desc Clear all products from current user's cart
+  * @access Private
+  */
+ cartRouter.delete('/clear', authUser, clearCartController);
 
 //update cart route
  /**

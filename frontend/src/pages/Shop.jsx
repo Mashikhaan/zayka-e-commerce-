@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useSearchParams } from 'react-router-dom'
 import { useProducts } from '../features/productsSlice/products.context'
 import { useCart } from '../features/hooks/useCart'
 import AllProductsCard from '../components/AllProductsCard'
@@ -7,7 +7,8 @@ import AllProductsCard from '../components/AllProductsCard'
 function Shop() {
   const { products, loading, error } = useProducts()
   const { handleAddToCart } = useCart()
-  const [selectedCategory, setSelectedCategory] = useState('all')
+  const [searchParams] = useSearchParams()
+  const [selectedCategory, setSelectedCategory] = useState(() => searchParams.get('category') || 'all')
   const location = useLocation()
 
   // Scroll to product if navigated from search
@@ -19,6 +20,11 @@ function Shop() {
       }
     }
   }, [products, location.state])
+
+  useEffect(() => {
+    const category = searchParams.get('category')
+    setSelectedCategory(category || 'all')
+  }, [searchParams])
 
   // Get unique categories from products
   const categories = useMemo(() => {

@@ -10,6 +10,7 @@ import productRouter from './routes/product.route.js';
 import cors from 'cors';
 import uploadRouter from './routes/upload.route.js';
 import cartRouter from './routes/cart.route.js';
+import paymentRouter from './routes/payment.route.js';
 const app = express();
 
 //middleware
@@ -27,6 +28,7 @@ app.use('/api/order',orderRouter);
 app.use('/api/product',productRouter);
 app.use('/api/upload',uploadRouter)
 app.use('/api/cart',cartRouter)
+app.use('/api/payment',paymentRouter)
 
 
 

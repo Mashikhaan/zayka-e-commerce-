@@ -20,7 +20,6 @@ export function Categories() {
       {/* 2nd card */}
       <CategoryCard img={'../public/cat-2.png'} title={"Fresh Fruits"} discount={'Upto 40'} link={'/fruitCategory'}/>
       {/* 3rd card */}
-      
       <CategoryCard img={'../public/cat-3.png'} title={"Dairy Products"} discount={'Upto 30'} link={'/dairyCategory'}/>
       {/* 4th card */}
       <CategoryCard img={'../public/cat-4.png'} title={"Fresh Meats"} discount={'Upto 35'} link={'/meatCategory'}/>

@@ -1,5 +1,5 @@
 import { CartContext } from "../cartSlice/cart.context";
-import { getCart, addToCart, removeFromCart, updateCartQuantity } from "../services/cart.api";''
+import { getCart, addToCart, removeFromCart, updateCartQuantity, clearCart } from "../services/cart.api";
 import { useAuth } from "../hooks/useAuth";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -72,11 +72,24 @@ export const useCart = () => {
     }
   };
 
+  // CLEAR FULL CART
+  const handleClearCart = async () => {
+    try {
+      const data = await clearCart();
+      setCart(data.products);
+      toast.success("Cart cleared after successful order");
+    } catch (error) {
+      toast.error("Failed to clear cart");
+      console.error("Clear cart error:", error);
+    }
+  };
+
   return {
     cart,
     fetchCart,
     handleAddToCart,
     handleRemove,
     handleQuantity,
+    handleClearCart,
   };
 };

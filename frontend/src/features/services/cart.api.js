@@ -42,3 +42,11 @@ export const updateCartQuantity = async (productId, quantity) => {
   const res = await api.put("/cart/update", { productId, quantity });
   return res.data;
 };
+
+// -------------------------
+// CLEAR CART API CALL
+// -------------------------
+export const clearCart = async () => {
+  const res = await api.delete("/cart/clear");
+  return res.data;
+};

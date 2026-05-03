@@ -65,6 +65,10 @@ export default function AccountMenu() {
                 My Profile
               </Link>
 
+              <Link to="/order-history" className="block px-4 py-2 hover:bg-gray-100">
+                Order History
+              </Link>
+
               {user.role === "admin" && (
                 <Link to="/admin/create-product" className="block px-4 py-2 hover:bg-gray-100 text-blue-600 font-medium">
                   Admin Panel

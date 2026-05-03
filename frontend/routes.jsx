@@ -17,6 +17,8 @@ import Register from "./src/features/pages/Register";
 import Login from "./src/features/pages/Login";
 import Profile from "./src/features/pages/Profile";
 import CartPage from "./src/pages/CartPage";
+import OrderHistory from "./src/pages/OrderHistory";
+import OrderSuccess from "./src/pages/OrderSuccess";
 import CreateProduct from "./src/features/pages/admin/CreateProduct";
 import ProtectedAdminRoute from "./src/components/ProtectedAdminRoute";
 
@@ -42,6 +44,8 @@ export const router = createBrowserRouter([
       {path: "login",element: <Login />},         
       {path: "profile",element: <Profile />},         
       {path: "cart",element: <CartPage />},         
+      {path: "order-history", element: <OrderHistory />},
+      {path: "order-success/:orderId", element: <OrderSuccess />},
       {path: "admin/create-product",element: <ProtectedAdminRoute><CreateProduct /></ProtectedAdminRoute>},         
     
     ],

@@ -31,3 +31,26 @@ export async function deleteCartController(req,res){
         res.status(500).json({ message: err.message });
     }
 }
+
+export async function clearCartController(req, res) {
+  try {
+    const userId = req.user.id;
+    const cart = await cartModel.findOne({ userId });
+
+    if (!cart) {
+      return res.status(404).json({ message: "Cart not found" });
+    }
+
+    cart.products = [];
+    await cart.save();
+    
+    res.status(200).json({
+      message: "Cart cleared successfully",
+      success: true,
+      products: [],
+    });
+  } catch (err) {
+    console.error("Clear cart error:", err);
+    res.status(500).json({ message: err.message });
+  }
+}

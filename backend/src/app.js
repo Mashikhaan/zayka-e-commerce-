@@ -1,67 +1,68 @@
 /**
- * Server setup (Production ready)
+ * =========================================
+ *  PRODUCTION READY EXPRESS SERVER
+ * =========================================
  */
 
 import express from 'express';
 import authRouter from './routes/auth.route.js';
 import orderRouter from './routes/order.route.js';
-import cookieParser from 'cookie-parser';
 import productRouter from './routes/product.route.js';
-import cors from 'cors';
 import uploadRouter from './routes/upload.route.js';
 import cartRouter from './routes/cart.route.js';
 import paymentRouter from './routes/payment.route.js';
+
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 const app = express();
 
 
-// 🔹 ES6 me __dirname banane ka tarika
+// =========================================
+// ES6 __dirname setup
+// =========================================
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 
+// =========================================
+// MIDDLEWARES
+// =========================================
 
-// =====================
-// 🔹 MIDDLEWARES
-// =====================
-
-// JSON data parse karne ke liye
+// JSON body parser
 app.use(express.json());
 
-// Form data parse karne ke liye
+// URL encoded form data parser
 app.use(express.urlencoded({ extended: true }));
 
-// Cookies handle karne ke liye
+// Cookies parser
 app.use(cookieParser());
 
 
-// 🔹 CORS config (frontend + backend connect karne ke liye)
+// =========================================
+// CORS CONFIG (IMPORTANT FOR PRODUCTION)
+// =========================================
 app.use(cors({
     origin: [
-        'http://localhost:5173',                 // local frontend
-        'https://zayka-e-commerce.onrender.com' // deployed frontend
+        'http://localhost:5173',
+        'https://zayka-e-commerce.onrender.com'
     ],
     credentials: true
 }));
 
 
-
-// =====================
-// 🔹 STATIC FILES (Frontend build serve karne ke liye)
-// =====================
-
-// 👉 backend/public folder ko serve karega
+// =========================================
+// STATIC FILES (FRONTEND BUILD)
+// =========================================
+// backend/public folder serve karega
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 
-
-// =====================
-// 🔹 API ROUTES
-// =====================
-
-// 👉 Ye sab backend APIs hain
+// =========================================
+// API ROUTES (IMPORTANT: ALWAYS FIRST)
+// =========================================
 app.use('/api/auth', authRouter);
 app.use('/api/order', orderRouter);
 app.use('/api/product', productRouter);
@@ -70,21 +71,23 @@ app.use('/api/cart', cartRouter);
 app.use('/api/payment', paymentRouter);
 
 
+// =========================================
+// SPA FALLBACK (REACT ROUTING SUPPORT)
+// =========================================
+// IMPORTANT: ONLY non-API routes ko catch karega
 
-// =====================
-// 🔹 SPA FALLBACK (VERY IMPORTANT)
-// =====================
+app.use((req, res, next) => {
+    // agar API request hai → next middleware (404 ya error handle karega)
+    if (req.path.startsWith('/api')) {
+        return next();
+    }
 
-// 👉 Agar koi route match nahi hota (React routes),
-// to index.html serve karo
-
-app.use((req, res) => {
+    // otherwise React app serve karo
     res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
 
-
-// =====================
-// 🔹 EXPORT APP
-// =====================
+// =========================================
+// EXPORT
+// =========================================
 export default app;

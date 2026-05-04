@@ -45,7 +45,7 @@ const existingUser = await userModel.findOne({ email });
             html: `<h1>Welcome to Zayka, ${username}!</h1>
             <p>Thank you for registering with us. We're excited to have you on board!</p>
             <p>Please verify your email address by clicking the link below:</p>
-            <a href="http://localhost:3000/api/auth/verify-email?token=${emailVerificationToken}">Verify Email</a>
+            <a href="https://zayka-e-commerce.onrender.com/api/auth/verify-email?token=${emailVerificationToken}">Verify Email</a>
             <p>If you did not create an account, please ignore this email.</p>
             <p>Best regards,<br/>The Zayka Team</p>`
         })
@@ -108,7 +108,7 @@ try{
 
     const html = `<h1>Email Verified</h1>
     <p>Your email has been successfully verified. You can now log in to your account.</p>
-    <a href="http://localhost:3000/api/auth/get-me">Go to Login</a>
+    <a href="https://zayka-e-commerce.onrender.com/api/auth/get-me">Go to Login</a>
     <p>Best regards,<br/>The Zayka Team</p>`
 
    return res.send(html);

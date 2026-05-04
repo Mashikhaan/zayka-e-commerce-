@@ -1,6 +1,6 @@
 /**
  * =========================================
- *  PRODUCTION READY EXPRESS SERVER
+ *  PRODUCTION READY EXPRESS SERVER 
  * =========================================
  */
 
@@ -21,7 +21,7 @@ const app = express();
 
 
 // =========================================
-// ES6 __dirname setup
+// __dirname setup (ESM)
 // =========================================
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,19 +30,13 @@ const __dirname = path.dirname(__filename);
 // =========================================
 // MIDDLEWARES
 // =========================================
-
-// JSON body parser
 app.use(express.json());
-
-// URL encoded form data parser
 app.use(express.urlencoded({ extended: true }));
-
-// Cookies parser
 app.use(cookieParser());
 
 
 // =========================================
-// CORS CONFIG (IMPORTANT FOR PRODUCTION)
+// CORS (PRODUCTION SAFE)
 // =========================================
 app.use(cors({
     origin: [
@@ -54,14 +48,7 @@ app.use(cors({
 
 
 // =========================================
-// STATIC FILES (FRONTEND BUILD)
-// =========================================
-// backend/public folder serve karega
-app.use(express.static(path.join(__dirname, '..', 'public')));
-
-
-// =========================================
-// API ROUTES (IMPORTANT: ALWAYS FIRST)
+//  API ROUTES (ALWAYS FIRST)
 // =========================================
 app.use('/api/auth', authRouter);
 app.use('/api/order', orderRouter);
@@ -72,17 +59,16 @@ app.use('/api/payment', paymentRouter);
 
 
 // =========================================
-// SPA FALLBACK (REACT ROUTING SUPPORT)
+//  STATIC FILES (REACT BUILD)
 // =========================================
-// IMPORTANT: ONLY non-API routes ko catch karega
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
-app.use((req, res, next) => {
-    // agar API request hai → next middleware (404 ya error handle karega)
-    if (req.path.startsWith('/api')) {
-        return next();
-    }
 
-    // otherwise React app serve karo
+// =========================================
+//  SPA FALLBACK (LAST STEP ONLY)
+// =========================================
+// IMPORTANT: ONLY non-API routes will reach here
+app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 

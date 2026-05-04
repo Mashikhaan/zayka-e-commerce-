@@ -68,7 +68,7 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 //  SPA FALLBACK (LAST STEP ONLY)
 // =========================================
 // IMPORTANT: ONLY non-API routes will reach here
-app.get('*', (req, res) => {
+app.get(/.*/, (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 

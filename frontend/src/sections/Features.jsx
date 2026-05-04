@@ -16,7 +16,7 @@ export function Features() {
       {/* 1st card  */}
       <div className="border flex flex-col items-center text-center gap-4 px-4 py-8 bg-zinc-50 hover:-translate-y-2 hover:scale-[1.03] 
 transition-all duration-300 ease-in-out rounded-2xl hover:rounded-none">
-        <img src="../public/feature-img-1.png" alt="" 
+        <img src="/feature-img-1.png" alt="" 
         className="w-50"/>
         <h1 className="capitalize  text-3xl font-medium">fresh and organic</h1>
         <p className="font-medium">Fresh, organic produce picked at peak ripeness for better taste and nutrition!</p>
@@ -30,7 +30,7 @@ transition-all duration-300 ease-in-out rounded-2xl hover:rounded-none">
       {/* 2nd card */}
       <div className="border flex flex-col items-center text-center gap-4 px-4 py-10 bg-zinc-50 hover:-translate-y-2 hover:scale-[1.03] 
 transition-all duration-300 ease-in-out rounded-2xl hover:rounded-none">
-        <img src="../public/feature-img-2.png" alt="" 
+        <img src="/feature-img-2.png" alt="" 
         className="w-54"/>
         <h1 className="capitalize  text-3xl font-medium">free delivery</h1>
         <p className="font-medium">Fast, free doorstep delivery with real‑time order updates.!</p>
@@ -44,7 +44,7 @@ transition-all duration-300 ease-in-out rounded-2xl hover:rounded-none">
       {/* 3rd card */}
       <div className="border flex flex-col items-center text-center gap-4 px-4 py-8 bg-zinc-50 hover:-translate-y-2 hover:scale-[1.03] 
 transition-all duration-300 ease-in-out rounded-2xl hover:rounded-none">
-        <img src="../public/feature-img-3.png" alt="" 
+        <img src="/feature-img-3.png" alt="" 
         className="w-50"/>
         <h1 className="capitalize  text-3xl font-medium">easy payments</h1>
         <p className="font-medium">Secure checkout with cards, UPI, and popular wallets!</p>

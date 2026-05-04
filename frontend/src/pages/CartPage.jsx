@@ -25,14 +25,11 @@ const CartPage = () => {
   const handleCheckout = async () => {
     setIsLoading(true);
     try {
-      // Step 1: Calculate totals
+      // Step 1: Calculate totals using only product price
       const itemsPrice = cart.reduce((total, item) => {
-        return total + (item.productId.price * item.quantity);
+        return total + item.productId.price * item.quantity;
       }, 0);
-      
-      const taxPrice = Math.round(itemsPrice * 0.05); // 5% tax
-      const shippingPrice = itemsPrice > 500 ? 0 : 50; // Free shipping above ₹500
-      const totalPrice = itemsPrice + taxPrice + shippingPrice;
+      const totalPrice = itemsPrice;
 
       // Validate mobile number before checkout
       if (!/^[0-9]{10}$/.test(mobile)) {
@@ -57,8 +54,8 @@ const CartPage = () => {
           country: "India",
         },
         itemsPrice,
-        taxPrice,
-        shippingPrice,
+        taxPrice: 0,
+        shippingPrice: 0,
         totalPrice,
       };
 

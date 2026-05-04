@@ -7,7 +7,7 @@ function Hero() {
   <section className='bg-[#f3f9e2] h-[90vh]  '>
 <div 
   className='w-full h-full bg-center bg-cover flex items-center justify-center  '
-  style={{ backgroundImage: "url('../public/banner-bg.webp')" }}
+  style={{ backgroundImage: "url('/banner-bg.webp')" }}
 >
   {/* Blur Overlay */}
   <div className=' flex flex-col items-center justify-center text-center'>

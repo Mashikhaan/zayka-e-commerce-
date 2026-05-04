@@ -36,7 +36,7 @@ export function Categories() {
        <CategoryCard
   title="Fresh Vegetables"
   discount="45"
-  img="../public/cat-1.png"
+  img="/cat-1.png"
   onClick={() => setSelectedCategory("Vegetables")
   }
 />
@@ -44,21 +44,21 @@ export function Categories() {
 <CategoryCard
   title="Fresh Fruits"
   discount="40"
-  img="../public/cat-2.png"
+  img="/cat-2.png"
   onClick={() => setSelectedCategory("Fruits")}
 />
 
               <CategoryCard
   title="Fresh Dairy Products"
   discount="45"
-  img="../public/cat-3.png"
+  img="/cat-3.png"
   onClick={() => setSelectedCategory("Dairy")}
 />
 
 <CategoryCard
   title="Fresh Meat"
   discount="40"
-  img="../public/cat-4.png"
+  img="/cat-4.png"
   onClick={() => setSelectedCategory("Meat")}
 />
 

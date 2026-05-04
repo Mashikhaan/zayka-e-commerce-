@@ -52,11 +52,11 @@ export function Reviews() {
       onSwiper={(swiper) => console.log(swiper)}
       
     >
-      <SwiperSlide><ReviewCard img={'../public/pic-1.png'} comment={'"Fresh produce with great taste and quality. Delivery is always on time and neatly packed."'}  name={"Rohit"}/></SwiperSlide>
-      <SwiperSlide><ReviewCard img={'../public/pic-2.png'} comment={'"Reliable delivery and excellent quality. Makes healthy eating easy.Clean, fresh, and well-packed items."'}  name={"Riya"}/></SwiperSlide>
-      <SwiperSlide><ReviewCard img={'../public/pic-3.png'} comment={'“Great quality produce with natural taste and freshness. Packaging is neat, everything arrives in perfect condition.”'}  name={"Aman Verma"}/></SwiperSlide>
-      <SwiperSlide><ReviewCard img={'../public/pic-4.png'} comment={'"Very satisfied with the service. Fruits are juicy, vegetables stay fresh longer. Worth the price."'}  name={"Neha"}/></SwiperSlide>
-      <SwiperSlide><ReviewCard img={'../public/pic-5.jpg'} comment={'"Consistent quality and timely delivery. No damaged items. Perfect for fresh, raw food at home."'}  name={"Rahul"}/></SwiperSlide>
+      <SwiperSlide><ReviewCard img={'/pic-1.png'} comment={'"Fresh produce with great taste and quality. Delivery is always on time and neatly packed."'}  name={"Rohit"}/></SwiperSlide>
+      <SwiperSlide><ReviewCard img={'/pic-2.png'} comment={'"Reliable delivery and excellent quality. Makes healthy eating easy.Clean, fresh, and well-packed items."'}  name={"Riya"}/></SwiperSlide>
+      <SwiperSlide><ReviewCard img={'/pic-3.png'} comment={'“Great quality produce with natural taste and freshness. Packaging is neat, everything arrives in perfect condition.”'}  name={"Aman Verma"}/></SwiperSlide>
+      <SwiperSlide><ReviewCard img={'/pic-4.png'} comment={'"Very satisfied with the service. Fruits are juicy, vegetables stay fresh longer. Worth the price."'}  name={"Neha"}/></SwiperSlide>
+      <SwiperSlide><ReviewCard img={'/pic-5.jpg'} comment={'"Consistent quality and timely delivery. No damaged items. Perfect for fresh, raw food at home."'}  name={"Rahul"}/></SwiperSlide>
     
      
     </Swiper>

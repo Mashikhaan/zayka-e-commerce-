@@ -39,13 +39,9 @@ app.use(cookieParser());
 // CORS (PRODUCTION SAFE)
 // =========================================
 app.use(cors({
-    origin: [
-        'http://localhost:5173',
-        'https://zayka-e-commerce.onrender.com'
-    ],
-    credentials: true
+  origin: true,
+  credentials: true
 }));
-
 
 // =========================================
 //  API ROUTES (ALWAYS FIRST)

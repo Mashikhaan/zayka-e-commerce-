@@ -91,7 +91,7 @@ export function Products() {
             1200: { slidesPerView: 3 },
           }}
         >
-          {products.slice(0, 8).map((product) => (
+          {(products || []).slice(0, 8).map((product) => (
             <SwiperSlide key={product._id} className="h-full">
               <div className="h-full px-2">
                 <ProductCard
@@ -125,7 +125,7 @@ export function Products() {
             1200: { slidesPerView: 3 },
           }}
         >
-          {products.slice(8, 16).map((product) => (
+          {(products || []).slice(8, 16).map((product) => (
             <SwiperSlide key={product._id} className="h-full">
               <div className="h-full px-2">
                 <ProductCard

@@ -1,6 +1,3 @@
-/**
- * product schema create
- */
 import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema(
@@ -62,6 +59,15 @@ const productSchema = new mongoose.Schema(
     isActive: {
       type: Boolean,
       default: true,
+    },
+
+    // NEW FIELD
+    freshness: {
+      type: Number,
+      required: true,
+      min: 0,
+      max: 100,
+      default: 0
     },
   },
   { timestamps: true }

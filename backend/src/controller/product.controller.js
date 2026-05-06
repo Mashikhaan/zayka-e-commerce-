@@ -68,50 +68,76 @@ res.status(500).json({ message: "Internal server error" });
 }
 
 //get all products controller(public)
+//get all products controller(public)
 export async function getAllProductsController(req, res) {
-try {
-const page = req.query.page ? parseInt(req.query.page) : null;
-const limit = req.query.limit ? parseInt(req.query.limit) : null;
-const search = req.query.search ? req.query.search.trim() : null;
+  try {
+    const page = req.query.page ? parseInt(req.query.page) : null;
+    const limit = req.query.limit ? parseInt(req.query.limit) : null;
+    const search = req.query.search ? req.query.search.trim() : null;
 
+    let query = { isActive: true };
 
-let query = { isActive: true };
+    // 🔍 Search filter (name + category)
+    if (search) {
+      query.$or = [
+        { name: { $regex: search, $options: "i" } },
+        { category: { $regex: search, $options: "i" } }
+      ];
+    }
 
-if (search) {
-  query.$or = [
-    { name: { $regex: search, $options: 'i' } },
-    { category: { $regex: search, $options: 'i' } }
-  ];
-}
+    // 🔥 CHANGED: Added category priority sorting logic
+    // Reason: MongoDB does NOT guarantee insertion order or category order
+    // So we manually define order: Vegetables → Fruits → Dairy → Meat (last)
+    let productsQuery = productModel.aggregate([
+      { $match: query },
 
-let productsQuery = productModel
-  .find(query)
-  .sort({ createdAt: -1 })
-  .select("-__v")
-  .lean();
+      // 🧠 Assign priority to categories
+      {
+        $addFields: {
+          categoryOrder: {
+            $switch: {
+              branches: [
+                { case: { $eq: ["$category", "Vegetables"] }, then: 1 },
+                { case: { $eq: ["$category", "Fruits"] }, then: 2 },
+                { case: { $eq: ["$category", "Dairy"] }, then: 3 },
+                { case: { $eq: ["$category", "Meat"] }, then: 4 }
+              ],
+              default: 99
+            }
+          }
+        }
+      },
 
-if (page && limit) {
-  const skip = (page - 1) * limit;
-  productsQuery = productsQuery.skip(skip).limit(limit);
-} else if (limit) {
-  productsQuery = productsQuery.limit(limit);
-}
+      //  Sort by category priority first, then latest products
+      { $sort: { categoryOrder: 1, createdAt: -1 } },
 
-const products = await productsQuery;
-const total = await productModel.countDocuments(query);
+      //❌ Remove helper field from final output
+      { $project: { __v: 0, categoryOrder: 0 } }
+    ]);
 
-res.status(200).json({
-  message: "Products retrieved successfully",
-  total,
-  page: page || 1,
-  products,
-});
+    // 📄 Pagination (applied after aggregation)
+    if (page && limit) {
+      const skip = (page - 1) * limit;
+      productsQuery = productsQuery.skip(skip).limit(limit);
+    } else if (limit) {
+      productsQuery = productsQuery.limit(limit);
+    }
 
+    const products = await productsQuery;
 
-} catch (error) {
-console.error("Error retrieving products:", error);
-res.status(500).json({ message: "Internal server error" });
-}
+    const total = await productModel.countDocuments(query);
+
+    res.status(200).json({
+      message: "Products retrieved successfully",
+      total,
+      page: page || 1,
+      products,
+    });
+
+  } catch (error) {
+    console.error("Error retrieving products:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 }
 
 //get single product controller(public)

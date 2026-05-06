@@ -7,7 +7,7 @@ export async function createProductController(req, res) {
 try {
 const { name, price, category, unit, brand, description, countInStock, freshness } = req.body;
 
-```
+
 let image = "";
 
 // 🔥 Cloudinary Upload
@@ -59,7 +59,7 @@ res.status(201).json({
   message: "Product created successfully",
   product,
 });
-```
+
 
 } catch (error) {
 console.error("Error creating product:", error);
@@ -74,7 +74,7 @@ const page = req.query.page ? parseInt(req.query.page) : null;
 const limit = req.query.limit ? parseInt(req.query.limit) : null;
 const search = req.query.search ? req.query.search.trim() : null;
 
-```
+
 let query = { isActive: true };
 
 if (search) {
@@ -106,7 +106,7 @@ res.status(200).json({
   page: page || 1,
   products,
 });
-```
+
 
 } catch (error) {
 console.error("Error retrieving products:", error);
@@ -116,33 +116,31 @@ res.status(500).json({ message: "Internal server error" });
 
 //get single product controller(public)
 export async function getSingleProductController(req, res) {
-try {
-const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-```
-if (!mongoose.Types.ObjectId.isValid(id)) {
-  return res.status(400).json({ message: "Invalid product ID" });
-}
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid product ID" });
+    }
 
-const product = await productModel
-  .findOne({ _id: id, isActive: true })
-  .select("-__v")
-  .lean();
+    const product = await productModel
+      .findOne({ _id: id, isActive: true })
+      .select("-__v")
+      .lean();
 
-if (!product) {
-  return res.status(404).json({ message: "Product not found" });
-}
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
 
-res.status(200).json({
-  message: "Product retrieved successfully",
-  product
-});
-```
+    res.status(200).json({
+      message: "Product retrieved successfully",
+      product
+    });
 
-} catch (error) {
-console.error("Error retrieving product:", error);
-res.status(500).json({ message: "Internal server error" });
-}
+  } catch (error) {
+    console.error("Error retrieving product:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 }
 
 //update product controller(admin)
@@ -151,7 +149,7 @@ try {
 const { id } = req.params;
 const { name, price, category, brand, description, freshness } = req.body;
 
-```
+
 if (!mongoose.Types.ObjectId.isValid(id)) {
   return res.status(400).json({ message: "Invalid product ID" });
 }
@@ -198,7 +196,7 @@ res.status(200).json({
   message: "Product updated successfully",
   product,
 });
-```
+
 
 } catch (error) {
 console.error("Error updating product:", error);
